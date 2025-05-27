@@ -1,4 +1,3 @@
-
 const plataformaService = require('../services/plataformaService');
 
 // Controlador para obtener todas las plataformas
