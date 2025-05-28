@@ -1,127 +1,550 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <title>Panel de Plataformas</title>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&display=swap" rel="stylesheet">
-  <style>
+<meta charset="UTF-8" />
+<title>Panel de Plataformas</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&display=swap" rel="stylesheet" />
+<style>
+
+    /* Aquí van tus estilos, los mismos que te di antes (rosado y azul) */
+
+    /* (Para ahorrar espacio no los repito aquí, pero si quieres te los envío completos) */
+
     * {
+
       margin: 0;
+
       padding: 0;
+
       box-sizing: border-box;
+
       font-family: 'Montserrat', sans-serif;
+
     }
 
     body {
+
       background: linear-gradient(to right, #7b61ff, #9b72f2);
+
       display: flex;
+
       justify-content: center;
+
       align-items: center;
-      height: 100vh;
+
+      min-height: 100vh;
+
+      padding: 20px;
+
     }
 
     .container {
+
       background-color: #fff;
+
       padding: 40px;
+
       border-radius: 20px;
+
       box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-      max-width: 500px;
-      width: 90%;
+
+      max-width: 900px;
+
+      width: 100%;
+
+      overflow-y: auto;
+
+      max-height: 90vh;
+
     }
 
     h2 {
+
       text-align: center;
+
       color: #5a2dba;
+
       margin-bottom: 30px;
+
     }
 
     .buttons {
+
       display: flex;
+
       justify-content: center;
+
       gap: 20px;
-      margin-bottom: 30px;
+
+      margin-bottom: 20px;
+
+      flex-wrap: wrap;
+
     }
 
     button {
+
       padding: 12px 25px;
+
       border: none;
+
       border-radius: 10px;
+
       font-weight: 600;
+
       cursor: pointer;
+
       transition: all 0.3s ease;
+
       box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+
+      color: #fff;
+
     }
 
     .load-btn {
+
       background-color: #7b3ff2;
-      color: #fff;
+
     }
 
     .load-btn:hover {
+
       background-color: #6931db;
+
     }
 
     .logout-btn {
+
       background-color: #999;
-      color: #fff;
+
     }
 
     .logout-btn:hover {
+
       background-color: #7a7a7a;
+
     }
 
-    .result {
-      margin-top: 10px;
-      border-top: 1px solid #ddd;
-      padding-top: 20px;
-      font-size: 16px;
-      color: #333;
+    .add-btn {
+
+      background-color: #3f7bf2;
+
     }
-  </style>
+
+    .add-btn:hover {
+
+      background-color: #315ecb;
+
+    }
+
+    table {
+
+      width: 100%;
+
+      border-collapse: collapse;
+
+      margin-top: 15px;
+
+    }
+
+    th, td {
+
+      border: 1px solid #ddd;
+
+      padding: 10px;
+
+      text-align: center;
+
+      color: #333;
+
+    }
+
+    th {
+
+      background-color: #7b3ff2;
+
+      color: #fff;
+
+      font-weight: 600;
+
+    }
+
+    .action-btn {
+
+      padding: 5px 12px;
+
+      border: none;
+
+      border-radius: 6px;
+
+      cursor: pointer;
+
+      font-weight: 600;
+
+      transition: background-color 0.3s ease;
+
+      color: #fff;
+
+    }
+
+    .edit-btn {
+
+      background-color: #ff7b3f;
+
+    }
+
+    .edit-btn:hover {
+
+      background-color: #db6831;
+
+    }
+
+    .delete-btn {
+
+      background-color: #f23f3f;
+
+    }
+
+    .delete-btn:hover {
+
+      background-color: #cb3131;
+
+    }
+
+    /* Modal Styles */
+
+    .modal {
+
+      display: none;
+
+      position: fixed;
+
+      z-index: 10;
+
+      left: 0; top: 0;
+
+      width: 100%; height: 100%;
+
+      overflow: auto;
+
+      background-color: rgba(0,0,0,0.4);
+
+      justify-content: center;
+
+      align-items: center;
+
+      padding: 20px;
+
+    }
+
+    .modal-content {
+
+      background-color: #fff;
+
+      padding: 25px 30px;
+
+      border-radius: 15px;
+
+      max-width: 900px;
+
+      width: 100%;
+
+      box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+
+      position: relative;
+
+      max-height: 90vh;
+
+      overflow-y: auto;
+
+    }
+
+    .modal-header {
+
+      font-weight: 700;
+
+      font-size: 1.25rem;
+
+      color: #5a2dba;
+
+      margin-bottom: 20px;
+
+      text-align: center;
+
+    }
+
+    .close-btn {
+
+      position: absolute;
+
+      top: 15px; right: 20px;
+
+      font-size: 1.3rem;
+
+      font-weight: 700;
+
+      border: none;
+
+      background: none;
+
+      cursor: pointer;
+
+      color: #7b3ff2;
+
+      transition: color 0.3s ease;
+
+    }
+
+    .close-btn:hover {
+
+      color: #6931db;
+
+    }
+
+    form label {
+
+      display: block;
+
+      margin-bottom: 6px;
+
+      font-weight: 600;
+
+      color: #333;
+
+      margin-top: 15px;
+
+    }
+
+    form input[type="text"],
+
+    form input[type="date"],
+
+    form select {
+
+      width: 100%;
+
+      padding: 8px 10px;
+
+      margin-bottom: 10px;
+
+      border: 1px solid #ccc;
+
+      border-radius: 8px;
+
+      font-size: 1rem;
+
+      transition: border-color 0.3s ease;
+
+    }
+
+    form input[type="text"]:focus,
+
+    form input[type="date"]:focus,
+
+    form select:focus {
+
+      outline: none;
+
+      border-color: #7b3ff2;
+
+    }
+
+    form .submit-btn {
+
+      background-color: #7b3ff2;
+
+      color: #fff;
+
+      padding: 12px 20px;
+
+      border: none;
+
+      border-radius: 10px;
+
+      font-weight: 600;
+
+      cursor: pointer;
+
+      width: 100%;
+
+      transition: background-color 0.3s ease;
+
+      margin-top: 20px;
+
+    }
+
+    form .submit-btn:hover {
+
+      background-color: #6931db;
+
+    }
+
+    .error-message {
+
+      color: #f23f3f;
+
+      font-size: 0.9rem;
+
+      margin-bottom: 12px;
+
+      display: none;
+
+    }
+
+    .section-divider {
+
+      margin-top: 25px;
+
+      border-top: 1px solid #ccc;
+
+      padding-top: 10px;
+
+      font-weight: 700;
+
+      color: #5a2dba;
+
+      font-size: 1.1rem;
+
+    }
+
+    .btn-small {
+
+      font-size: 0.9rem;
+
+      padding: 6px 12px;
+
+      margin-top: 5px;
+
+    }
+
+    .btn-add {
+
+      background-color: #3f7bf2;
+
+      color: white;
+
+      border-radius: 8px;
+
+      border: none;
+
+      cursor: pointer;
+
+      font-weight: 600;
+
+      margin-bottom: 15px;
+
+    }
+
+    .btn-add:hover {
+
+      background-color: #315ecb;
+
+    }
+
+    .perfil-container,
+
+    .cuenta-container {
+
+      border: 1px solid #ddd;
+
+      padding: 15px;
+
+      border-radius: 12px;
+
+      margin-bottom: 20px;
+
+      background-color: #f9f9ff;
+
+      position: relative;
+
+    }
+
+    .remove-btn {
+
+      position: absolute;
+
+      top: 10px;
+
+      right: 10px;
+
+      background-color: #f23f3f;
+
+      color: white;
+
+      border: none;
+
+      border-radius: 50%;
+
+      width: 28px;
+
+      height: 28px;
+
+      font-weight: 700;
+
+      cursor: pointer;
+
+      font-size: 1.1rem;
+
+      line-height: 1;
+
+      text-align: center;
+
+      padding: 0;
+
+      transition: background-color 0.3s ease;
+
+    }
+
+    .remove-btn:hover {
+
+      background-color: #cb3131;
+
+    }
+</style>
 </head>
 <body>
-  <div class="container">
-    <h2>Plataformas disponibles</h2>
-    <div class="buttons">
-      <button class="load-btn" onclick="cargarPlataformas()">Cargar plataformas</button>
-      <button class="logout-btn" onclick="cerrarSesion()">Cerrar sesión</button>
-    </div>
-    <div id="resultado" class="result"></div>
-  </div>
-
-  <script>
-    // Verifica si hay token al cargar
-    const token = localStorage.getItem('token');
-    if (!token) {
-      alert('Sesión expirada. Por favor inicia sesión.');
-      window.location.href = 'login.html';
-    }
-
-    async function cargarPlataformas() {
-      try {
-        const res = await fetch('http://localhost:3000/api/plataformas', {
-          headers: {
-            'Authorization': `Bearer ${token}`
-          }
-        });
-
-        const data = await res.json();
-
-        if (!res.ok) {
-          throw new Error(data.message || 'Error al cargar plataformas');
-        }
-
-        const resultado = document.getElementById('resultado');
-        resultado.innerHTML = data.map(p => `<div>🎬 ${p.nombre}</div>`).join('');
-      } catch (error) {
-        document.getElementById('resultado').innerText = `Error: ${error.message}`;
-      }
-    }
-
-    function cerrarSesion() {
-      localStorage.removeItem('token');
-      window.location.href = 'login.html';
-    }
-  </script>
+<div class="container">
+<h2>Plataformas disponibles</h2>
+<div class="buttons">
+<button class="load-btn" onclick="cargarPlataformas()">Cargar plataformas</button>
+<button class="add-btn" onclick="abrirModal('crear')">Agregar plataforma</button>
+<button class="logout-btn" onclick="cerrarSesion()">Cerrar sesión</button>
+</div>
+ 
+    <table id="tablaPlataformas" style="display:none;">
+<thead>
+<tr>
+<th>Nombre</th>
+<th>Cuentas</th>
+<th>Acciones</th>
+</tr>
+</thead>
+<tbody id="cuerpoTabla"></tbody>
+</table>
+</div>
+ 
+  <!-- Modal Crear/Editar -->
+<div id="modalPlataforma" class="modal" aria-modal="true" role="dialog">
+<div class="modal-content">
+<button class="close-btn" onclick="cerrarModal()" aria-label="Cerrar modal">&times;</button>
+<div class="modal-header" id="modalTitulo">Agregar Plataforma</div>
+<form id="formPlataforma" onsubmit="guardarPlataforma(event)">
+<label for="nombrePlataforma">Nombre de la plataforma:</label>
+<input type="text" id="nombrePlataforma" name="nombrePlataforma" required />
+<div id="errorNombre" class="error-message">Por favor, ingresa un nombre válido.</div>
+ 
+        <div id="cuentasContainer">
+<div class="section-divider">Cuentas</div>
+<!-- Cuentas se agregarán dinámicamente aquí -->
+</div>
+<button type="button" class="btn-add" onclick="agregarCuenta()">+ Agregar cuenta</button>
+ 
+        <button type="submit" class="submit-btn">Guardar Plataforma</button>
+</form>
+</div>
+</div>
+ 
+  <script src="app.js"></script>
 </body>
 </html>

@@ -40,9 +40,19 @@ const eliminarPlataforma = async (req, res) => {
   }
 };
 
+const agregarCuentaAPlataforma = async (req, res) => {
+  try {
+    const plataformaActualizada = await plataformaService.agregarCuentaAPlataforma(req.params.id, req.body);
+    res.status(200).json(plataformaActualizada);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
 module.exports = {
   obtenerPlataformas,
   agregarPlataforma,
   editarPlataforma,
   eliminarPlataforma,
+  agregarCuentaAPlataforma,
 };

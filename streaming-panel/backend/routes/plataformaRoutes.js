@@ -7,4 +7,6 @@ router.post('/', plataformaController.agregarPlataforma);
 router.put('/:id', plataformaController.editarPlataforma);
 router.delete('/:id', plataformaController.eliminarPlataforma);
 
+router.post('/:id/cuentas', plataformaController.agregarCuentaAPlataforma);
+
 module.exports = router;
